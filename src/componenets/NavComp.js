@@ -1,7 +1,17 @@
 import React from 'react'
-import { Container,Button,Form,Nav,Navbar,NavDropdown} from 'react-bootstrap'
+import { Container,Nav,Navbar} from 'react-bootstrap'
 
-export default function NavComp() {
+export default function NavComp({setIsAuth}) {
+
+  const boolValue=window.localStorage.getItem("isAuth")
+
+  const signOut = ()=>{
+    localStorage.clear()
+    setIsAuth(false)
+  }
+
+
+
   return (
     <>
     <Navbar bg="light" expand="lg">
@@ -10,26 +20,13 @@ export default function NavComp() {
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav
-            className="me-auto my-2 my-lg-0"
+            className="ms-auto my-2 my-lg-0"
             style={{ maxHeight: '100px' }}
             navbarScroll
           >
-            <Nav.Link href="/home">Home</Nav.Link>
-            <Nav.Link href="/blog">Blog</Nav.Link>
-            
-            <Nav.Link href="/login">
-              Login
-            </Nav.Link>
+            <Nav.Link href="/blog">Write</Nav.Link>
+            {!boolValue ? <Nav.Link href="/login">Login</Nav.Link> : <Nav.Link href="/" onClick={signOut}>Logout</Nav.Link>}
           </Nav>
-          <Form className="d-flex">
-            <Form.Control
-              type="search"
-              placeholder="Search"
-              className="me-2"
-              aria-label="Search"
-            />
-            <Button variant="outline-success">Search</Button>
-          </Form>
         </Navbar.Collapse>
       </Container>
     </Navbar>

@@ -5,18 +5,21 @@ import { Route, Routes } from 'react-router-dom';
 import Home from './pages/Home'
 import Blog from './pages/Blog'
 import Login from './pages/Login'
+import { useState } from 'react';
 
-function App() {
+export default function App() {
+
+  const [isAuth,setIsAuth]= useState(false)
+
   return (
     <div className="App">
-    <NavComp/>
+    <NavComp setIsAuth={setIsAuth}/>
       <Routes>
-         <Route path="/home" element={<Home/>}/>
+         <Route path="/" element={<Home/>}/>
          <Route path="/blog" element={<Blog/>}/>
-         <Route path="/login" element={<Login/>}/>
+         <Route path="/login" element={<Login setIsAuth={setIsAuth}/>}/>
       </Routes>
     </div>
   );
 }
 
-export default App;
